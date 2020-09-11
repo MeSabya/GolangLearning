@@ -1,0 +1,54 @@
+package main
+
+import "fmt"
+
+type Node struct{
+    name string 
+    next *Node
+}
+
+type SingleList struct{
+    head *Node
+    size int
+}
+
+func initList() *SingleList{
+    return &SingleList{}
+}
+
+func (s *SingleList) addFront(name string){
+    ele := &Node{
+        name : name,
+    }
+    
+    if s.head == nil{
+        s.head = ele
+    }else{
+        ele.next = s.head
+        s.head = ele
+        
+    }
+    
+    s.size++
+    return
+    
+}
+
+func (list *SingleList) front() (string, error) {
+    if list.head == nil {
+        return "", fmt.Errorf("Single list is empty")
+    }
+    
+    return list.head.name, nil
+}
+
+func main() {
+   fmt.Println("Single linked list programs")
+   list := initList()
+   list.addFront("sabya")
+   //list.addBack("sachi")
+   name, err := list.front()
+   fmt.Printf("name and error %s %s", name, err)
+   
+   
+}
