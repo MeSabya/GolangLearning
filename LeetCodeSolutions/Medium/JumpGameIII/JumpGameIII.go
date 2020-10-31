@@ -6,7 +6,7 @@ start index of the array. When you are at index i,
 Notice that you can not jump outside of the array at any time.
 
 */
-package leetcodesolutions
+package jumpgameIII
 
 func CanReach(arr []int, start int) bool {
 	//From any neighbor node can we reach our target
