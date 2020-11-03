@@ -57,7 +57,7 @@ type Logger struct {
 }
 
 func initLogger() *Logger {
-	return &Logger{logset: make(map[string]bool, 1000), logcache: make(map[string]Log, 1000)}
+	return &Logger{logset: make(map[string]bool), logcache: make(map[string]Log)}
 }
 
 func (logger *Logger) shouldPrintMessage(timestamp int, message string) bool {
