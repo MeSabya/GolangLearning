@@ -15,11 +15,12 @@ func main() {
 
 	//func1
 	go func() {
+		fmt.Println("fun1")
 		cond.L.Lock()
 		for len(sharedRsc) == 0 {
 			cond.Wait()
 		}
-		fmt.Println(sharedRsc["SABYA"])
+		fmt.Println("fun1::", sharedRsc["SABYA"])
 		cond.L.Unlock()
 		wg.Done()
 
@@ -27,17 +28,20 @@ func main() {
 
 	//func2
 	go func() {
+		fmt.Println("fun2")
 		cond.L.Lock()
 		for len(sharedRsc) == 0 {
 			cond.Wait()
 		}
-		fmt.Println(sharedRsc["GUDUL"])
+		fmt.Println("Fun2::", sharedRsc["GUDUL"])
 		cond.L.Unlock()
 		wg.Done()
 
 	}()
 
+	fmt.Println("Before lock")
 	cond.L.Lock()
+	fmt.Println("After lock")
 	sharedRsc["SABYA"] = 31
 	sharedRsc["GUDUL"] = 25
 	cond.Broadcast()
