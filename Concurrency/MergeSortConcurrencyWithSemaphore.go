@@ -100,7 +100,9 @@ func runConcurrentMergeWithSem(arr []int, sem chan struct{}) []int {
 }
 
 func runConcurrentMerge(arr []int) []int {
-	sem := make(chan struct{}, 4) //We want to spawn maximum 4 goroutines at once
+	//Usage of creating a channel using an empty struct is discussed in
+	//https://github.com/MeSabya/GolangLearning/blob/master/Basics/EmptyStruct.go
+	sem := make(chan struct{}, 4) //At once we want to spawn maximum 4 goroutines
 	return runConcurrentMergeWithSem(arr, sem)
 }
 func main() {
