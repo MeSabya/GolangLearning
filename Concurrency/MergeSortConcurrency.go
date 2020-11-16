@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func merge(left []int, right []int) (result []int) {
+func merge_(left []int, right []int) (result []int) {
 	//Here left and right arrays are already sorted
 	//We need to make a sorted array out of the two sorted arrays
 	left_len := len(left)
@@ -38,7 +38,30 @@ func merge(left []int, right []int) (result []int) {
 	}
 
 	return
+}
 
+/*
+Just look at the function above, it looks like it is implemented in C or C++,
+It can be improved more in a golang way. The improved version is:
+*/
+
+func merge(left, right []int) []int {
+	result := make([]int, 0, len(left)+len(right))
+	for len(left) > 0 || len(right) > 0 {
+		if len(left) == 0 {
+			return append(result, right...)
+		} else if len(right) == 0 {
+			return append(result, left...)
+		} else if left[0] < right[0] {
+			result = append(result, left[0])
+			left = left[0:]
+		} else {
+			result = append(result, right[0])
+			right = right[0:]
+		}
+	}
+
+	return result
 }
 
 func singleMergeSort(arr []int) []int {
@@ -48,7 +71,6 @@ func singleMergeSort(arr []int) []int {
 
 	mid := len(arr) / 2
 	return merge(singleMergeSort(arr[:mid]), singleMergeSort(arr[mid:]))
-
 }
 
 func concurrentMerge(arr []int, result chan []int) {
